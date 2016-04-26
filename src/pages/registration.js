@@ -19,18 +19,24 @@ const RegistrationPage = React.createClass({
   						.configure(socketio(socket));
 
   		const userService = app.service('users');
-  		userService.find({email: this.state.email}).then(function(users) {
-  			console.log(users);
-  		});
-  		
+ //  		userService.find({email: this.state.email}).then(function(users) {
+	// 		// users.forEach(function(user) { console.log(users)});
+ //  	// 		console.log('Check for existing email ' + users.toString());
+	// 		// str = JSON.stringify(users);
+	// 		var str = JSON.stringify(users, null, 4); // (Optional) beautiful indented output.
+	// 		console.log(str);
+ //  		});
+
   		console.log(this.state.email);
-
   		userService.create({email: this.state.email, age: this.state.age, password: this.state.password})
-  					.then(function(result) {
-  						console.log("Added:" +email);
-  					});
+			.then(function(result) {
+				console.log("Added:" + result);
+		}).catch(function(error) {
+			console.log('Catch error');
+			console.dir(error);
 
-  					userService.
+		});
+
 
 	},
 	handlePasswordChange: function(e) {
@@ -47,7 +53,7 @@ const RegistrationPage = React.createClass({
 	render() {
 		return (
 			<div>
-				
+
 		        <input
 		          type="text"
 		          placeholder="Email"

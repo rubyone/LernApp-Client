@@ -13,6 +13,11 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
+const io = require('socket.io-client');
+const feathers = require('feathers/client');
+const hooks = require('feathers-hooks');
+const authentication = require('feathers-authentication/client');
+const socketio = require('feathers-socketio/client');
 
 import { Router, Route, Link, browserHistory } from 'react-router';
 
@@ -25,30 +30,44 @@ var CreateLearnPackagePage = require('./pages/createLearnPackage.js');
 var ActiveLearnPackagesPage = require('./pages/activeLearnPackages.js');
 var AddContentPage = require('./pages/addContent.js');
 
-
-
 var $ = require('jquery-browserify');
 
- 
-//console.log(RegistrationPage);
+// Establish a Socket.io connection
+const socket = io('http://localhost:3030');
+// Initialize our Feathers client application through Socket.io
+// with hooks and authentication.
+const app = feathers()
+  .configure(socketio(socket))
+  .configure(hooks())
+  // Use localStorage to store our login token
+  .configure(authentication({
+    storage: window.localStorage
+  }));
+
 
 // routen eingebaut
-ReactDOM.render(
-  <Router history={browserHistory}>
-    <Route path="/" component={HomePage}>
-        <Route path="registration" component={RegistrationPage} />
-        <Route path="login" component={LoginPage} />
-        <Route path="quiz" component={QuizPage} />
-        <Route path="createLearnPackage" component={CreateLearnPackagePage} />
-        <Route path="activeLearnPackages" component={ActiveLearnPackagesPage} />
-        <Route path="addContent" component={AddContentPage} />
+app.authenticate().then(() => {
+    ReactDOM.render(
+      <Router history={browserHistory}>
+        <Route path="/" component={HomePage}>
+            <Route path="registration" component={RegistrationPage} />
+            <Route path="login" component={LoginPage} />
+            <Route path="quiz" component={QuizPage} />
+            <Route path="createLearnPackage" component={CreateLearnPackagePage} />
+            <Route path="activeLearnPackages" component={ActiveLearnPackagesPage} />
+            <Route path="addContent" component={AddContentPage} />
 
-    </Route>
+        </Route>
 
-    
-  </Router>,
-  document.getElementById('app-container')
-  //document.body
-  //     
 
-)
+      </Router>,
+      document.getElementById('app-container'));
+
+      //document.body
+}).catch(error => {
+    if(error.code === 401) {
+    window.location.href = '/login.html'
+    }
+
+    console.error(error);
+});

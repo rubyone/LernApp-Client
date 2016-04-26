@@ -8,7 +8,7 @@ const App = React.createClass({
       <div>
         <h1>App</h1>
         <ul>
-          <li><Link to="/registration">registration</Link></li>
+          <li><Link to="/registration">Registration</Link></li>
           <li><Link to="/login">Login</Link></li>
           <li><Link to="/quiz">Quiz</Link></li>
           <li><Link to="/createLearnPackage">CreateLearnPackage</Link></li>
