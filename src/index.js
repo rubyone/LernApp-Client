@@ -45,6 +45,13 @@ const app = feathers()
   }));
 
 
+const Logout = React.createClass({
+    componentWillMount() {
+        app.logout().then(() => window.location.href = 'login.html');
+    },
+    render() {}
+})
+
 // routen eingebaut
 app.authenticate().then(() => {
     ReactDOM.render(
@@ -56,7 +63,7 @@ app.authenticate().then(() => {
             <Route path="createLearnPackage" component={CreateLearnPackagePage} />
             <Route path="activeLearnPackages" component={ActiveLearnPackagesPage} />
             <Route path="addContent" component={AddContentPage} />
-
+            <Route path="logout" component={Logout} />
         </Route>
 
 

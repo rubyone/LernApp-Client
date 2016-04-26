@@ -14,6 +14,7 @@ const App = React.createClass({
           <li><Link to="/createLearnPackage">CreateLearnPackage</Link></li>
           <li><Link to="/activeLearnPackages">ActiveLearnPackages</Link></li>
           <li><Link to="/addContent">AddContent</Link></li>
+          <li><Link to="/logout">Logout</Link></li>
 
         </ul>
         {this.props.children}
