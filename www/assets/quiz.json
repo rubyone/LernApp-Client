@@ -1,0 +1,69 @@
+{
+  "title": "Welchen Lernstil hast du?",
+  "questions": [
+    {
+      "question": "Stell dir vor, du besuchst in einer fremden Stadt einen Freund. Er konnte dich aber nicht vom Bahnhof abholen und du musst selber zu ihm hinfinden. Was würde dir am meisten helfen?",
+      "answers": [
+        {
+          "is_right": true,
+          "visual": 1,
+          "value": "Ein Stadtplan, den du dir am Kiosk kaufst,"
+        },
+        {
+          "is_right": false,
+          "value": "ein freundlicher Mensch, der dich begleitet,"
+        },
+        {
+          "is_right": false,
+          "value": "die genaue Beschreibung des Weges im letzten Brief des Freundes,"
+        },
+        {
+          "is_right": false,
+          "value": "die genaue Erklärung des Weges durch einen Ortskundigen."
+        }
+      ]
+    },
+    {
+      "question": "Du bist nicht ganz sicher, ob man das Wort 'parallel', 'paralell' oder 'parallell' schreibt. Ich würde",
+      "answers": [
+        {
+          "is_right": false,
+          "value": "das Wörterbuch aus dem Regal holen und darin nachschlagen,"
+        },
+        {
+          "is_right": true,
+          "value": "die Augen schließen und mir das geschriebene Wort im Schriftbild vorstellen,"
+        },
+        {
+          "is_right": true,
+          "value": "mir den Klang des Wortes vorstellen und es ein paar Mal aussprechen,"
+        },
+        {
+          "is_right": false,
+          "value": "das Wort blind und rasch auf ein Blatt Papier schreiben, ohne zu denken."
+        }
+      ]
+    },
+    {
+      "question": "Ihr habt heute in der Schule das Programm für eure nächste Projektwoche - eine Reise - erfahren. Du möchtest deine Freundin, die heute gefehlt hat, darüber informieren. Du würdest",
+      "answers": [
+        {
+          "is_right": false,
+          "value": "sie sofort anrufen und ihr alles am Telefon erzählen,"
+        },
+        {
+          "is_right": true,
+          "value": "ihr eine E-mail mit der genauen Beschreibung der Reise schicken,"
+        },
+        {
+          "is_right": true,
+          "value": "ihr die Reisestrecke auf einer Weltkarte zeigen,"
+        },
+        {
+          "is_right": false,
+          "value": "ihr mitteilen, was man auf dieser Projektwoche so alles unternehmen kann."
+        }
+      ]
+    }
+  ]
+}

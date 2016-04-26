@@ -31,3 +31,4 @@ lib/
 data/
 
 www/bundle.js
+.DS_Store
