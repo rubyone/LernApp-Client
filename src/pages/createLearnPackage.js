@@ -1,34 +1,28 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-const feathers = require('feathers/client');
-const socketio = require('feathers-socketio/client');
-const hooks = require('feathers-hooks');
-const io = require('socket.io-client');
+import superagent from 'superagent';
+
 
 //klasse erstellen
 const CreateLearnPackagePage = React.createClass({
 	getInitialState() {
-		return {name: '', description:''};
+		return {name: '', description:'' owner: "ruben"};
 	},
+
 	handleSubmit() {
+		superagent.post('http://localhost:3030/learnpackage/')
+			.auth('ruben', 'testest')
+			.send({name : this.state.name, description : this.state.description, owner : this.state.owner})
+			.end(function(err, res){
+				if (err) alert(res.statusCode, err)
+				if (res.statusCode == 200) {
+					window.location = '/#/addContent/' + res.body._id
+				}
+   			})
 
-		const socket = io('http://localhost:3030');
-		const app = feathers()
-  						.configure(hooks())
-  						.configure(socketio(socket));
-
-  		const learnpackagesService = app.service('learnpackages');
-  		learnpackagesService.find({name: this.state.name, description: this.state.description}).then(function(learnpackages) {
-  			console.log(learnpackages);
-  		});
-  		//console.log(this.state.name);
-
-  		learnpackagesService.create({name: this.state.name, description: this.state.description})
-  					.then(function(result) {
-  						console.log(result);
-  					});
 	},
+
 	handleNameChange: function(e) {
     this.setState({name: e.target.value});
 	},
@@ -40,17 +34,21 @@ const CreateLearnPackagePage = React.createClass({
 			<div>
 
 
-				<h1>Erstelle hier eine neue Klasse</h1>
+				<h1>Neue Lerneinheit erstellen</h1>
+				<p>Name der Lehreinheit</p>
 		      	 <input
 		          type="text"
-		          placeholder="Klassen Name"
+		          placeholder="..."
 		     	  onChange={this.handleNameChange} />
+		     	  <h1></h1>
+		     	  <p>Kurzbeschreibung der Lerneinheit</p>
 		     	  <input
 		          type="text"
-		          placeholder="Klassenbeschreibung"
+		          placeholder="Beschreibung der Lerneinheit"
 		     	  onChange={this.handleDescriptionChange} />
+		     	  <h1></h1>
 		        
-		        <input onClick={this.handleSubmit} type="submit" value="Klasse erstellen" />
+		        <input onClick={this.handleSubmit} type="submit" value="Lerneinheit erstellen" />
 
 
 	      	</div>

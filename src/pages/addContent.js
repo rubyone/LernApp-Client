@@ -7,31 +7,34 @@ import AudioRecorder from 'react-audio-recorder';
 //added webcam
 import Webcam from 'react-webcam';
 
+import superagent from 'superagent';
 
 
-const feathers = require('feathers/client');
-const socketio = require('feathers-socketio/client');
-const hooks = require('feathers-hooks');
-const io = require('socket.io-client');
 
 //klasse erstellen
 const AddContentPage = React.createClass({
 	handleSubmitAddContent() {
-
-		const socket = io('http://localhost:3030');
-		const app = feathers().configure(hooks()).configure(socketio(socket));
-
-  		const learnpackagesService = app.service('learnpackages');
-  		learnpackagesService.find({name: this.state.name}).then(function(learnpackages) {
-  			
-  		});
-  		console.log(this.state.name);
-
-  		learnpackagesService.create({email: this.state.email, age: this.state.age, password: this.state.password})
-  					.then(function(result) {
-  						//console.log("Added:" +email);
-  					});
-
+		superagent.post('http://localhost:3030/learnpackage/' + this.props.params.id)
+			.auth('ruben', 'testest')
+			.send({
+				vocOne: this.state.vocOne,
+				vocOneDesc: this.state.vocOneDesc,
+				vocTwo: this.state.vocTwo,
+				vocTwoDesc: this.state.vocTwoDesc
+			})
+			.end(function(err, res){
+				if (err) alert(res.statusCode, err)
+				if (res.statusCode == 200) {
+					console.log(res.body)
+					superagent.post('http://localhost:3030/learnpackage/' + this.props.params.id + '/imageForElement/' + res.body['_id'])
+					.auth('ruben', 'testest')
+					.set('Content-Type', 'application/octet-stream')
+					.send(this.state.img)
+					.end(function(err, res){
+						alert('fertig')
+					})
+				}
+		   	}.bind(this))
 	},
 	handleVocabelOneChange: function(e) {
     this.setState({vocOne: e.target.value});
@@ -52,7 +55,8 @@ const AddContentPage = React.createClass({
 	this.setState({data: e.target.value});
 	},
 	handleVideoChange: function(e) {
-	this.setState({data: e.target.value});
+		var screenshot = this.refs.webcam.getScreenshot();
+        this.setState({img: screenshot});
 	},
 
 	render() {
@@ -60,44 +64,47 @@ const AddContentPage = React.createClass({
 			<div>
 
 
-				<h1>Erstelle hier neuen Kontent für deine Klasse</h1>
+			<h1>Neue Vokabel zu Lerneinheit hinzufügen</h1>
+			<p>Vokabelname Muttersprache</p>
+			<input
+			type="text"
+			placeholder="..."
+			onChange={this.handleVocabelOneChange} />
+			<p>Vokabelbeschreibung Muttersprache</p>
+			<input
+			type="text"
+			placeholder="..."
+			onChange={this.handleVocabelOneDescriptionChange} />
+			<p>Vokabelname Fremdsprache</p>
+			<input
+			type="text"
+			placeholder="..."
+			onChange={this.handleVocabelTwoChange} />
+			<p>Vokabelbeschreibung Fremdsprache</p>
+			<input
+			type="text"
+			placeholder="..."
+			onChange={this.handleVocabelTwoDescriptionChange} />
+			<p></p>
+			<input name="Datei" input
+			type="file"
+			placeholder="Datei"
+			onChange={this.handleDataChange} />
 
-		      	 <input
-		          type="text"
-		          placeholder="Vokabel 1"
-		     	  onChange={this.handleVocabelOneChange} />
-
-		     	  <input
-		          type="text"
-		          placeholder="Beschreibung Vokabel 1"
-		     	  onChange={this.handleVocabelOneDescriptionChange} />
-
-		     	  <input
-		          type="text"
-		          placeholder="Vokabel 2"
-		     	  onChange={this.handleVocabelTwoChange} />
-
-		     	  <input
-		          type="text"
-		          placeholder="Beschreibung Vokabel 2"
-		     	  onChange={this.handleVocabelTwoDescriptionChange} />
-		     	 
-		     	  <input name="Datei" input
-		          type="file"
-		          placeholder="Datei"
-		     	  onChange={this.handleDataChange} />
-		     	 
-		     	  <AudioRecorder onChange={this.handleAudioChange}/>
+			<p>Vokabelausprache Muttersprache</p>
+			<AudioRecorder onChange={this.handleAudioChange}/>
+			<p>Vokabelausprache Fremdsprache</p>
+			<AudioRecorder onChange={this.handleAudioChange}/>
 		     	    
 		     	    
          
-             <Webcam
-              ref='webcam'/>
-              
-		        <input onClick={this.handleSubmitAddContent} type="submit" value="Aktive Lernpackete anzeigen" />
+             <Webcam ref='webcam'/>
+
+              	<input onClick={this.handleVideoChange} type="submit" value="screenshot" />
+              	
+		        <input onClick={this.handleSubmitAddContent} type="submit" value="Jetzt hinzufügen" />
 
 	      	</div>
-
 
 
       	)

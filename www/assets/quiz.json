@@ -1,24 +1,23 @@
 {
-  "title": "Welchen Lernstil hast du?",
+  "title": "Welchen Lernstil hast du? 1/10",
   "questions": [
     {
       "question": "Stell dir vor, du besuchst in einer fremden Stadt einen Freund. Er konnte dich aber nicht vom Bahnhof abholen und du musst selber zu ihm hinfinden. Was würde dir am meisten helfen?",
       "answers": [
         {
-          "is_right": true,
-          "visual": 1,
+          "bildlich": 1,
           "value": "Ein Stadtplan, den du dir am Kiosk kaufst,"
         },
         {
-          "is_right": false,
+          "handelnd": 1,
           "value": "ein freundlicher Mensch, der dich begleitet,"
         },
         {
-          "is_right": false,
+          "lesend": 1,
           "value": "die genaue Beschreibung des Weges im letzten Brief des Freundes,"
         },
         {
-          "is_right": false,
+          "akustisch": 1,
           "value": "die genaue Erklärung des Weges durch einen Ortskundigen."
         }
       ]

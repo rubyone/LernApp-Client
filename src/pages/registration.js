@@ -30,7 +30,7 @@ const RegistrationPage = React.createClass({
   						console.log("Added:" +email);
   					});
 
-  					userService.
+  					// userService.
 
 	},
 	handlePasswordChange: function(e) {

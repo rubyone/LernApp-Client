@@ -14,7 +14,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 
 
-import { Router, Route, Link, browserHistory } from 'react-router';
+import { Router, Route, Link, hashHistory } from 'react-router';
 
 //routen verlinkungen initialisiert
 var HomePage = require('./pages/home.js');
@@ -24,6 +24,8 @@ var QuizPage = require('./pages/quiz.js');
 var CreateLearnPackagePage = require('./pages/createLearnPackage.js');
 var ActiveLearnPackagesPage = require('./pages/activeLearnPackages.js');
 var AddContentPage = require('./pages/addContent.js');
+var ProfilePage = require('./pages/profile.js');
+var LearnpreferencePage = require('./pages/learnpreference.js');
 
 
 
@@ -34,14 +36,18 @@ var $ = require('jquery-browserify');
 
 // routen eingebaut
 ReactDOM.render(
-  <Router history={browserHistory}>
+  <Router history={hashHistory}>
     <Route path="/" component={HomePage}>
         <Route path="registration" component={RegistrationPage} />
         <Route path="login" component={LoginPage} />
         <Route path="quiz" component={QuizPage} />
+        <Route path="learnpreference" component={LearnpreferencePage}>
+          <Route path="/quiz" component={QuizPage} />
+        </Route>  
         <Route path="createLearnPackage" component={CreateLearnPackagePage} />
         <Route path="activeLearnPackages" component={ActiveLearnPackagesPage} />
-        <Route path="addContent" component={AddContentPage} />
+        <Route path="addContent/:id" component={AddContentPage} />
+        <Route path="profile" component={ProfilePage} />
 
     </Route>
 

@@ -6,14 +6,16 @@ const App = React.createClass({
   render() {
     return (
       <div>
-        <h1>App</h1>
+        <h1>Vokabel-LernApp</h1>
         <ul>
           <li><Link to="/registration">registration</Link></li>
           <li><Link to="/login">Login</Link></li>
-          <li><Link to="/quiz">Quiz</Link></li>
-          <li><Link to="/createLearnPackage">CreateLearnPackage</Link></li>
-          <li><Link to="/activeLearnPackages">ActiveLearnPackages</Link></li>
-          <li><Link to="/addContent">AddContent</Link></li>
+          <li><Link to="/learnpreference">Lernpräferenzanpassung</Link></li>
+          <li><Link to="/createLearnPackage">Lerneinheit erstellen</Link></li>
+          
+         
+          <li><Link to="/quiz">Memory</Link></li>
+
 
         </ul>
         {this.props.children}

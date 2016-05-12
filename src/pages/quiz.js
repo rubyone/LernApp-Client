@@ -1,35 +1,31 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-const feathers = require('feathers/client');
-const socketio = require('feathers-socketio/client');
-const hooks = require('feathers-hooks');
-const io = require('socket.io-client');
+
 const Question = require('./components/question.js')
 
 
 const QuizPage = React.createClass({
   getInitialState() {
-    return {email: '', age:'', password:''};
+    return {handelnd: '', akustisch:'', lesend:'', bildlich:''};
   },
   handleSubmit() {
 
-    const socket = io('http://localhost:3030');
-    const app = feathers()
-              .configure(hooks())
-              .configure(socketio(socket));
-
-      const userService = app.service('users');
-      userService.find({}).then(function(users) {
-        console.log('search');
-      });
-      
-      console.log(this.state.email);
-
-      userService.create({email: this.state.email, age: this.state.age, password: this.state.password})
-            .then(function(result) {
-              console.log(result);
-            });
+      superagent.post('http://localhost:3030/learnpackage/' + this.props.params.id)
+      .auth('ruben', 'testest')
+      .send({
+        handelnd: this.state.handelnd,
+        akustisch: this.state.akustisch,
+        lesend: this.state.lesend,
+        bildlich: this.state.bildlich
+      })
+      .end(function(err, res){
+        if (err) alert(res.statusCode, err)
+        if (res.statusCode == 200) {
+          console.log(res.body)
+          // window.location = '/#/addContent/' + res.body._id
+        }
+        })
 
   },
 
